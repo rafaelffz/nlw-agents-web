@@ -39,13 +39,10 @@ export function RecordRoomAudio() {
 
     formData.append("file", audio, "audio.webm");
 
-    const response = await fetch(`http://localhost:3333/rooms/${params.roomId}/audio`, {
+    await fetch(`http://localhost:3333/rooms/${params.roomId}/audio`, {
       method: "POST",
       body: formData,
     });
-
-    const result = await response.json();
-    console.log(result);
   }
 
   function createRecorder(audio: MediaStream) {
@@ -58,14 +55,6 @@ export function RecordRoomAudio() {
       if (event.data.size > 0) {
         uploadAudio(event.data);
       }
-    };
-
-    recorder.current.onstart = () => {
-      console.log("gravação iniciada");
-    };
-
-    recorder.current.onstop = () => {
-      console.log("gravação finalizada");
     };
 
     recorder.current.start();
