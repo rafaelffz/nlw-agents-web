@@ -26,38 +26,41 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed w-full border-border border-b bg-card">
-        <div className="mx-auto flex items-center justify-between px-6 py-3">
-          <img alt="Login" className="h-10" src={logo} />
+      {session?.data?.user && (
+        <header className="fixed w-full border-border border-b bg-card">
+          <div className="mx-auto flex items-center justify-between px-6 py-3">
+            <img alt="Login" className="h-10" src={logo} />
 
-          <div>
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <Avatar className="cursor-pointer">
-                  <AvatarImage alt="User's Avatar" src={session?.data?.user.image as string | undefined} />
-                  <AvatarFallback>{session?.data?.user.name}</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="mr-3">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuLabel>
-                  <div>
-                    <div>{session?.data?.user.name ? session.data.user.name : "Usuário"}</div>
-                    <div className="text-muted-foreground text-xs">{session?.data?.user.email}</div>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer" onClick={logOut}>
-                  <div className="flex items-start gap-2">
-                    <LogOut /> Logout
-                  </div>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div>
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="cursor-pointer">
+                    <AvatarImage alt="User's Avatar" src={session?.data?.user.image as string | undefined} />
+                    <AvatarFallback>{session?.data?.user.name}</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="mr-3">
+                  <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
+                  <DropdownMenuLabel>
+                    <div>
+                      <div>{session?.data?.user.name ? session.data.user.name : "Usuário"}</div>
+                      <div className="text-muted-foreground text-xs">{session?.data?.user.email}</div>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="group cursor-pointer" onClick={logOut}>
+                    <div className="flex items-start gap-2">
+                      <LogOut className="group-hover:text-destructive" />{" "}
+                      <span className="group-hover:text-destructive">Log out</span>
+                    </div>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
-        </div>
-      </header>
-      <main className="pt-24 pb-10">
+        </header>
+      )}
+      <main className={`pb-10 ${session?.data?.user ? "pt-24" : "pt-10"}`}>
         <Outlet />
       </main>
     </>

@@ -11,7 +11,7 @@ export function CreateRoom() {
         <div>
           <h1 className="mb-2 font-medium text-4xl">Olá, {session?.user?.name ? session.user.name : "usuário"}!</h1>
         </div>
-        <div className="grid grid-cols-2 items-start gap-8">
+        <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
           <CreateRoomForm />
 
           <RoomList />
